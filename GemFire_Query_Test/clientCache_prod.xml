@@ -1,0 +1,34 @@
+<!DOCTYPE client-cache PUBLIC 
+"-//GemStone Systems, Inc.//GemFire Declarative Caching 8//EN" 
+"http://www.gemstone.com/dtd/cache8_0.dtd">
+
+<client-cache>
+
+    <pool name="clientPool" free-connection-timeout="3600000" idle-timeout="3600000" read-timeout="3600000">
+        <server host="aue1lxpgf001ptl.penske.com" port="40404"></server>
+        <server host="aue1lxpgf002ptl.penske.com" port="40404"></server>
+        <server host="aue1lxpgf003ptl.penske.com" port="40404"></server>
+        <server host="aue1lxpgf001ptl.penske.com" port="40405"></server>
+        <server host="aue1lxpgf002ptl.penske.com" port="40405"></server>
+        <server host="aue1lxpgf003ptl.penske.com" port="40405"></server>
+        <server host="aue1lxpgf001ptl.penske.com" port="40406"></server>
+        <server host="aue1lxpgf002ptl.penske.com" port="40406"></server>
+        <server host="aue1lxpgf003ptl.penske.com" port="40406"></server>
+    </pool>
+    
+    <pdx read-serialized="true">
+        <pdx-serializer>
+            <class-name>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</class-name>
+        </pdx-serializer>
+    </pdx>
+    
+    <region name="UnitTelemetry">
+        <region-attributes refid="PROXY" pool-name="clientPool" />
+    </region>
+    <region name="UTVINSummary">
+        <region-attributes refid="PROXY" pool-name="clientPool" />
+    </region>
+    <region name="UnitInfo">
+        <region-attributes refid="PROXY" pool-name="clientPool" />
+    </region>
+</client-cache>
