@@ -377,7 +377,7 @@ public class GFDataRepository {
 
         RestTemplate restTemplate = builder.build();
 
-        String baseUrl = "https://aue1lxsgf001ptl.penske.com:8080/gemfire-api/v1/UTVINSummary/";
+        String baseUrl = "https://localhost:8080/gemfire-api/v1/UTVINSummary/";
         String requestUrl = "";
 
 
@@ -416,24 +416,12 @@ public class GFDataRepository {
         try {
             Class.forName("org.postgresql.Driver");
             Properties props = new Properties();
-            props.setProperty("password","ConsumerAnalytic#17");
-            props.setProperty("user", "bcginsight");
+            props.setProperty("password","password");
+            props.setProperty("user", "user");
 
-            /*props.setProperty("proxy_type", "4"); // SSL Tunneling
-            props.setProperty("proxy_host", "sl-ams-01-guido.stat");
-            props.setProperty("proxy_port", "1080");
-            props.setProperty("proxy_user", "statica3445");
-            props.setProperty("proxy_password", "0963ea201a52e4cc");*/
-
-            /*props.setProperty("proxy_type", "4"); // SSL Tunneling
-            props.setProperty("proxy_host", "sl-ams-01-guido.stat");
-            props.setProperty("proxy_port", "1080");
-            props.setProperty("proxy_user", "statica3445");
-            props.setProperty("proxy_password", "0963ea201a52e4cc");*/
-
-            conn = DriverManager.getConnection("jdbc:postgresql://aue1lxsgp001ptl.penske.com:5432/cf_stg", props /*"bcginsight","ConsumerAnalytic#17" */);
-          //  conn = DriverManager.getConnection("jdbc:postgresql://stg-gp-elb-373893188.us-east-1.elb.amazonaws.com:5432/cf_stg", props /*"bcginsight","ConsumerAnalytic#17" */);
-
+           
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cf_stg", props);
+          
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("Select NOW()");
             rs.next();
@@ -461,7 +449,7 @@ public class GFDataRepository {
           RestTemplateBuilder builder = new RestTemplateBuilder();
           RestTemplate restTemplate = builder.build();
 
-          String baseUrl = "https://aue1lxpgf001ptl.penske.com:8080/gemfire-api/v1/OmnitracsVinNumbers/";
+          String baseUrl = "https://localhost:8080/gemfire-api/v1/OmnitracsVinNumbers/";
           String requestUrl = "";
 
           for (String line : (Iterable<String>) lines::iterator) {
@@ -522,27 +510,11 @@ public class GFDataRepository {
 
         CustomerO customer = new CustomerO();
 
-        /* id=30002, tsp='Geotabgroup', name='gt1',
-        username='login@penske.com', password='password1234',
-        dbname='penske_leasing', updated_by='null',
-        updated_on=0, active_status_id=0, app_status_id=0,
-        customer_name='null', customer_number=null,
-        entered_by='null', entered_on='null',
-        active_status_description='In Active',
-        app_status_description='Test'
-
-        '10086', 'TestJoin', '2068', '2068',
-        '20pen68', NULL, NULL, '505007855',
-        '1497551171166', '1', '0', NULL,
-        NULL, NULL, NULL
-
-
-        */
         customer.setId(10093L);
         customer.setTsp(saveTspName);
-        customer.setName("2068");
-        customer.setUsername("2068");
-        customer.setPassword("20pen68");
+        customer.setName("user");
+        customer.setUsername("user");
+        customer.setPassword("password");
         customer.setDbname(null);
         customer.setUpdated_by("505007855");
         customer.setUpdated_on(null);
@@ -579,8 +551,8 @@ public class GFDataRepository {
     public RestTemplate createRestTemplate(){
         BasicCredentialsProvider credentialsProvider =  new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
-                new UsernamePasswordCredentials("4D183BB4-36FA-2398-9744-6964D5F22D44-93F5FADB-00D6-490B-A107-966C0D6EABCD",
-                        "5E1A56D7-A3C8-3451-8EF8-FB64A55E19D0-5FB60E36-56D6-4941-A960-70CF29DAABCD"));
+                new UsernamePasswordCredentials("user",
+                        "password"));
         HttpClientBuilder httpClientBuilder = HttpClientBuilder.create().setDefaultCredentialsProvider(credentialsProvider);
         HttpClient httpClient = httpClientBuilder.build();
         ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
@@ -588,17 +560,6 @@ public class GFDataRepository {
         return restTemplate;
     }
 
-    public void setPenskeProxcy(){
-
-        Properties props = new Properties(System.getProperties());
-        props.put("http.proxyHost","web-proxy.penske.com");
-        props.put("http.proxyPort","80");
-        props.put("https.proxyHost","web-proxy.penske.com");
-        props.put("https.proxyPort","80");
-        System.setProperties(props);
-
-
-    }
 
     public void getVinDataFromOmnitracsVinNumbersFomGF() throws Exception {
 
