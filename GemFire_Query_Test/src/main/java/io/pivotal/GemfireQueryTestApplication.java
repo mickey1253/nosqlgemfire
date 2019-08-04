@@ -408,9 +408,9 @@ public class GemfireQueryTestApplication<K,V> implements CommandLineRunner {
 
     public static void setupAuthenticator() {
         System.setProperty("socksProxyHost", "true");
-        System.setProperty("java.net.socks.username", "statica3445");
-        System.setProperty("java.net.socks.password", "0963ea201a52e4cc");
-        System.setProperty("socksProxyHost", "sl-ams-01-guido.statica.io");
+        System.setProperty("java.net.socks.username", "user");
+        System.setProperty("java.net.socks.password", "password");
+        System.setProperty("socksProxyHost", "abcdefg");
         System.setProperty("socksProxyPort", "9493");
 
         if(System.getProperties().containsKey("socksProxyHost")) {
